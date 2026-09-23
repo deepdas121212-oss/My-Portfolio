@@ -3,144 +3,233 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deep Das — Financial Modeling & Analytics Portfolio</title>
+  <title>Deep Das — Financial Modeling & Corporate Valuation Analytics</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(23, 31, 51, 0.7);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
+      --bg: #030712;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
       --accent: #3b82f6;
-      --accent-hover: #2563eb;
-      --border: rgba(255, 255, 255, 0.1);
-      --tag-bg: rgba(59, 130, 246, 0.15);
-      --tag-text: #60a5fa;
+      --accent-glow: rgba(59, 130, 246, 0.25);
+      --text-primary: #f9fafb;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --badge-bg: rgba(59, 130, 246, 0.12);
+      --badge-border: rgba(59, 130, 246, 0.3);
+      --tag-green: #10b981;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg);
-      color: var(--text-main);
+      color: var(--text-primary);
       line-height: 1.6;
-      padding: 20px;
-      max-width: 1000px;
+      padding: 24px 16px;
+      max-width: 1080px;
       margin: 0 auto;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+      background-attachment: fixed;
     }
 
-    header {
-      padding: 40px 0 20px 0;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 30px;
+    /* Header Profile Section */
+    .profile-header {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--tag-green);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 30px;
+      margin-bottom: 16px;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      background-color: var(--tag-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--tag-green);
     }
 
     h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
       margin-bottom: 8px;
-      background: linear-gradient(90deg, #ffffff, #93c5fd);
+      background: linear-gradient(135deg, #ffffff 30%, #93c5fd 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px 16px;
+    }
+
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Grid Layout for Projects */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    .projects-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 10px 30px -10px var(--accent-glow);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .project-tag {
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .project-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
       margin-bottom: 20px;
     }
 
-    .badge {
-      display: inline-block;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      font-size: 0.85rem;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 15px;
-      font-weight: 500;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 25px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+    /* Interactive Chart Box */
+    .chart-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 24px;
-      backdrop-filter: blur(10px);
-      transition: transform 0.2s ease;
+      padding: 20px;
+      margin-bottom: 24px;
     }
 
-    .card-title {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .card-meta {
-      font-size: 0.85rem;
-      color: var(--tag-text);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-    }
-
-    .card-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 15px;
-    }
-
-    .content-box {
-      background: rgba(0, 0, 0, 0.3);
-      border-left: 3px solid var(--accent);
-      padding: 15px;
-      border-radius: 4px;
+    .chart-header {
       font-size: 0.9rem;
-      margin-bottom: 15px;
-    }
-
-    .content-box h4 {
+      font-weight: 600;
       color: #fff;
-      margin-top: 10px;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
     }
 
-    .content-box h4:first-child {
-      margin-top: 0;
-    }
-
-    .btn-link {
+    .btn-linkedin {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      color: var(--accent);
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      padding: 12px 20px;
+      border-radius: 12px;
+      transition: opacity 0.2s ease;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
 
-    .btn-link:hover {
-      text-decoration: underline;
-    }
+    .btn-linkedin:active { opacity: 0.85; }
 
     footer {
-      margin-top: 50px;
       text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
       color: var(--text-muted);
       font-size: 0.85rem;
     }
@@ -148,64 +237,118 @@
 </head>
 <body>
 
-  <header>
-    <span class="badge">CIMA Part-Qualified / Finance Professional</span>
+  <!-- PROFILE HEADER -->
+  <header class="profile-header">
+    <div class="badge-status">
+      <span class="pulse"></span> CIMA Part-Qualified Financial Analyst
+    </div>
     <h1>Deep Das</h1>
-    <p class="subtitle">Financial Modeling, Power BI Dashboards & Corporate Valuation Analytics</p>
+    <p class="subtitle">Financial Modeling • Power BI Dashboards • Corporate Valuation Analytics</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">3-Stmt</div>
+        <div class="metric-label">Integrated Models</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">>60%</div>
+        <div class="metric-label">Gross Margin Focus</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">Power BI</div>
+        <div class="metric-label">Interactive BI</div>
+      </div>
+    </div>
   </header>
 
-  <main class="grid">
+  <!-- PROJECTS SECTION -->
+  <main>
+    <h2 class="section-title">Featured Financial Models</h2>
 
-    <!-- PROJECT 1: Coca-Cola -->
-    <article class="card">
-      <div class="card-meta">3-Statement Model & Power BI</div>
-      <h2 class="card-title">Coca-Cola: The Ultimate Cash Machine</h2>
-      <p class="card-desc">
-        A dynamic, fully integrated 3-statement financial model built in Excel and hooked up to a interactive Power BI dashboard to analyze KO's revenue, margins, cash conversion, and working capital mechanics.
-      </p>
+    <div class="projects-container">
 
-      <div class="content-box">
-        <h4>📊 Chart 1: The Boring Growth Engine (Revenue)</h4>
-        <p>Steady upward climb with no wild spikes, demonstrating Coca-Cola's global brand habit strength.</p>
+      <!-- PROJECT 1: COCA-COLA -->
+      <article class="project-card">
+        <div class="project-header">
+          <span class="project-tag">Integrated 3-Statement & Power BI</span>
+        </div>
+        <h3 class="project-title">The Coca-Cola Company (KO) — Financial Engine Analysis</h3>
+        <p class="project-desc">
+          Built a dynamic, fully integrated 3-statement financial model linked to an interactive Power BI dashboard analyzing KO's revenue trends, margin stability, free cash flow conversion, and working capital dynamics.
+        </p>
 
-        <h4>💰 Chart 2: The 60% Rule (Margins)</h4>
-        <p>Gross margins hold steady above 60%, proving massive pricing power during inflationary cycles.</p>
+        <!-- Dynamic Chart Box -->
+        <div class="chart-box">
+          <div class="chart-header">
+            <span>Model Overview: Gross Margin Stability vs FCF</span>
+            <span style="color: var(--accent); font-family: monospace;">KO Analytics</span>
+          </div>
+          <canvas id="cokeChart" height="160"></canvas>
+        </div>
 
-        <h4>💸 Chart 3: FCF vs CapEx (Asset-Light Model)</h4>
-        <p>Free Cash Flow climbs while CapEx stays low because local bottlers handle factory investments while Coke provides concentrate.</p>
+        <a href="https://www.linkedin.com/posts/deepdas121212_financialmodeling-powerbi-dashboard-share-7477149260468334593-dEtL/?utm_source=share&utm_medium=member_ios&rcm=ACoAADDmemoBXolU5fv5MhJnpTV5xScSYJJBF6A" target="_blank" rel="noopener noreferrer" class="btn-linkedin">
+          View Complete Analysis on LinkedIn &rarr;
+        </a>
+      </article>
 
-        <h4>⏳ Chart 4: Working Capital Efficiency</h4>
-        <p>High payables days combined with rapid inventory turnover allow Coke to collect cash before paying suppliers—an interest-free loan funded by the supply chain.</p>
-      </div>
+      <!-- PROJECT 2: COMPASS GROUP -->
+      <article class="project-card">
+        <div class="project-header">
+          <span class="project-tag">Valuation & Performance Analysis</span>
+        </div>
+        <h3 class="project-title">Compass Group PLC — Financial Model & Analysis</h3>
+        <p class="project-desc">
+          Comprehensive performance evaluation and operational analysis for Compass Group PLC, exploring unit economics, margin structures, operating leverage, and working capital optimization across global contract food service operations.
+        </p>
 
-      <a href="https://www.linkedin.com/posts/deepdas121212_financialmodeling-powerbi-dashboard-share-7477149260468334593-dEtL/?utm_source=share&utm_medium=member_ios&rcm=ACoAADDmemoBXolU5fv5MhJnpTV5xScSYJJBF6A" target="_blank" rel="noopener noreferrer" class="btn-link">
-        Read Full Analysis on LinkedIn &rarr;
-      </a>
-    </article>
+        <a href="https://www.linkedin.com/in/deepdas121212" target="_blank" rel="noopener noreferrer" class="btn-linkedin">
+          View Profile & Network on LinkedIn &rarr;
+        </a>
+      </article>
 
-    <!-- PROJECT 2: Compass Group -->
-    <article class="card">
-      <div class="card-meta">Financial Analysis & Modeling</div>
-      <h2 class="card-title">Compass Group PLC — Financial Model & Analysis</h2>
-      <p class="card-desc">
-        Comprehensive financial model and strategic performance assessment for Compass Group PLC, focusing on operational cash flows, margin structures, and contract food service industry dynamics.
-      </p>
-
-      <div class="content-box">
-        <h4> Key Insights & Focus Areas</h4>
-        <p>Evaluated unit economics, operating leverage, margin stability, and working capital optimization across global food service operations.</p>
-      </div>
-
-      <a href="https://www.linkedin.com/in/deepdas121212" target="_blank" rel="noopener noreferrer" class="btn-link">
-        View Profile on LinkedIn &rarr;
-      </a>
-    </article>
-
+    </div>
   </main>
 
   <footer>
-    <p>&copy; Deep Das. Built for mobile deployment on Netlify via GitHub.</p>
+    <p>&copy; Deep Das • Optimized for Mobile GitHub Deployment</p>
   </footer>
 
+  <script>
+    // Initialize Coca-Cola Chart Visualizer
+    const ctx = document.getElementById('cokeChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2020', '2021', '2022', '2023', '2024'],
+        datasets: [
+          {
+            label: 'Gross Margin %',
+            data: [59.3, 60.2, 58.1, 59.5, 60.5],
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: 'FCF Conversion %',
+            data: [82, 88, 85, 89, 91],
+            borderColor: '#10b981',
+            borderDash: [5, 5],
+            tension: 0.4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#9ca3af', font: { size: 11 } } }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6b7280' } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6b7280' } }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
