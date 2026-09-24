@@ -359,6 +359,9 @@
     background: rgba(201,168,76,0.12); color: var(--accent);
     border: 1px solid rgba(201,168,76,0.28); margin-bottom: 0.7rem;
   }
+  .edu-grade.completed {
+    background: rgba(46,204,113,0.15); color: #2ECC71; border: 1px solid rgba(46,204,113,0.25);
+  }
   .edu-mods { font-size: 0.82rem; color: var(--grey); line-height: 1.65; }
 
   /* CONTACT */
@@ -450,7 +453,7 @@
       <div class="hero-tag">Finance · Technology · Digital Transformation</div>
       <h1>Deep<br><span>Das</span></h1>
       <p class="hero-sub">
-        Finance professional with an MSc in Accounting & Finance and Part-Qualified CIMA (Management Level). Currently in Finance Support at the University of Surrey — contributing to a major ERP cloud transformation from Unit4 Agresso to Unit4 ERPx. FMVA in progress. Building technical skills in Python, SQL, Power BI, Tableau, and AI applications in finance.
+        Finance professional with an MSc in Accounting & Finance and Part-Qualified CIMA (Management Level). Certified Financial Modeling & Valuation Analyst (FMVA). Currently in Finance Support at the University of Surrey — contributing to a major ERP cloud transformation from Unit4 Agresso to Unit4 ERPx. Building technical skills in Python, SQL, Power BI, Tableau, and AI applications in finance.
       </p>
       <div class="hero-btns">
         <a href="#projects" class="btn-primary">See My Work</a>
@@ -485,7 +488,7 @@
       <div class="about-text">
         <div class="label">About</div>
         <h2 class="title">A bit about <span style="color:var(--accent)">me</span></h2>
-        <p>I'm a finance professional with an <strong>MSc in Accounting and Finance from the University of Surrey</strong> (2:1), <strong>Part-Qualified CIMA (currently at Management Level)</strong>, and currently completing my <strong>FMVA certification</strong> from CFI.</p>
+        <p>I'm a finance professional with an <strong>MSc in Accounting and Finance from the University of Surrey</strong> (2:1), <strong>Part-Qualified CIMA (currently at Management Level)</strong>, and a certified <strong>FMVA holder</strong> from CFI.</p>
         <p>I currently work in <strong>Finance Support at the University of Surrey</strong>, where I'm gaining hands-on experience across finance operations, financial systems, reporting and process support. I'm also working within a team going through a <strong>major ERP cloud transformation</strong> from Unit4 Agresso to Unit4 ERPx — seeing the change happen firsthand and adapting quickly to new processes and systems.</p>
         <p>My core interest is the <strong>intersection of finance and technology</strong>. With experience in SAP FICO, SQL, Advanced Excel and BI tools, I'm focused on how technology can improve financial processes through automation, analytics and smarter systems. I'm actively developing skills in <strong>Python and AI applications in finance</strong>.</p>
         <p>My long-term goal is to combine finance knowledge with data-driven solutions to help organisations improve decision-making, efficiency and digital transformation. I have <strong>full right to work in the UK</strong> and am open to opportunities globally.</p>
@@ -508,7 +511,7 @@
             <span class="hl-icon">📊</span>
             <div class="hl-text">
               <strong>FMVA — Financial Modeling & Valuation Analyst</strong>
-              Corporate Finance Institute · In Progress
+              Corporate Finance Institute · Certified
             </div>
           </div>
           <div class="hl">
@@ -793,7 +796,7 @@
         <div class="edu-deg">Financial Modeling & Valuation Analyst (FMVA)</div>
         <div class="edu-school">Corporate Finance Institute (CFI)</div>
         <div class="edu-date">Completed 2026</div>
-        <div class="edu-grade">In Progress</div>
+        <div class="edu-grade completed">Completed</div>
         <div class="edu-mods">Financial Modeling · DCF Valuation · M&A · LBO · Budgeting & Forecasting</div>
       </div>
 
@@ -904,6 +907,11 @@
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
+    links.forEach(l => { l.style.color = l.getAttribute('href') === `#${current}` ? 'var(--accent)' : ''; });
+  });
+</script>
+</body>
+</html>
     links.forEach(l => { l.style.color = l.getAttribute('href') === `#${current}` ? 'var(--accent)' : ''; });
   });
 </script>
